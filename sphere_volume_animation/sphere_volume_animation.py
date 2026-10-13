@@ -520,6 +520,10 @@ def main():
                         help="render only this frame number to --output as a still image")
     args = parser.parse_args()
 
+    if args.show and matplotlib.get_backend().lower() == "agg":
+        sys.exit("--show needs a display, but none was found (e.g. a headless server). "
+                 "Save the animation to a file instead: -o sphere_volume.mp4")
+
     anim = SphereVolumeAnimation()
 
     if args.frame is not None:
